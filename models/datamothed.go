@@ -9,7 +9,7 @@ import (
 //insert model
 //@param model address of model
 //@return error of insert mondel and
-func (db *DataBase) Insert(model interface{}) (int64, error) {
+func (db *DataBase) Add(model interface{}) (int64, error) {
 	orm := orm.NewOrm()
 	return orm.Insert(model)
 }
@@ -113,6 +113,8 @@ func (db *DataBase) M2MQuery(model interface{}, relatedSel string) (int64, error
 	}
 	return orm.LoadRelated(model, relatedSel)
 }
+
+//存在与否
 func (db *DataBase) IsExist(model interface{}, cols ...string) bool {
 	orm := orm.NewOrm()
 	t := reflect.ValueOf(model).Type()
@@ -125,4 +127,10 @@ func (db *DataBase) IsExist(model interface{}, cols ...string) bool {
 	}
 	return true
 
+}
+
+//sql 语句查询
+func (db *DataBase) Raw(sql string, list interface{}, args ...interface{}) (int64, error) {
+	orm := orm.NewOrm()
+	return orm.Raw(sql, args...).QueryRows(list)
 }
