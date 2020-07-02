@@ -1,0 +1,56 @@
+<form>
+    <input type="hidden" name="Id" value="{{.model.Id}}">   
+    <div>
+        <label for="a_n">名称:<input type="text" name="ActionName" id="a_n" value="{{.model.ActionName}}"></label>
+    </div>
+    <div>
+        <label for="url">请求地址:<input type="text" name="Url" disabled="disabled"   id="url" value="{{.model.Url}}"></label>
+    </div>
+    <div>
+        <label for="u_p">上级菜单：<select name="ParentId" id="u_p">
+            {{if eq .model.ParentId 0}}
+                <option value="0" selected="selected">主菜单</option>
+            {{else}}
+            <option value="0">主菜单</option>
+            {{end}}
+            {{$pid:=.model.ParentId }}
+            {{range $i,$v:=.Lm}}
+                
+                {{if eq $pid $v.Id}}
+                <option value="{{$v.Id}}" selected="selected">{{$v.ActionName}}</option>
+                {{else}}
+                <option value="{{$v.Id}}" >{{$v.ActionName}}</option>
+                {{end}}
+            {{end}}      
+        </select></label>
+    </div>
+    
+    <div>
+        <label for="icon">图标:<input type="text" class="uploadfile"  name="Icon" id="icon" value="{{.model.Icon}}">           
+        </label>
+    </div>
+    <div>
+        <label for="isMenu">菜单: <select name="IsMenu" id="isMenu">
+                {{if .model.IsMenu}}
+                <option value="true" selected="selected">是</option>
+                <option value="false">不是</option>
+                {{else}}
+                <option value="true">是</option>
+                <option value="false" selected="selected">不是</option>
+                {{end}}
+            </select></label>
+        <label for="mothed">方法: <select name="Mothed" id="mothed">
+                {{if .model.Mothed}}
+                <option value="true" selected="selected">是</option>
+                <option value="false">不是</option>
+                {{else}}
+                <option value="true">是</option>
+                <option value="false" selected="selected">不是</option>
+                {{end}}
+            </select></label>
+    </div>
+
+    <div>
+        <label for="remark">备注:<input type="text" name="Remark" id="remark" value="{{.model.Remark}}"></label>
+    </div>
+</form>

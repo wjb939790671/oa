@@ -1,0 +1,13 @@
+<div>
+    <ul id="setActionTree" class="easyui-tree" url="/action/getall?roleId={{.roleId}}" checkbox="true"></ul>
+</div>
+
+<script>
+    $('#setActionTree').tree({
+        loadFilter:function(data){
+            if (data["code"]==4000){
+                return data["data"];
+            }
+        }
+    });
+</script>

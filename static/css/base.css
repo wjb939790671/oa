@@ -1,0 +1,13 @@
+*{
+    margin: 0;
+    padding: 0
+}
+li{
+    list-style: none    
+}
+
+.clearfix{
+    height: 0;
+    line-height: 0;
+    display: block;
+}

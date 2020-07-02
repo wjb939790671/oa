@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model>  
+    <!--字段必须有属性，是结构体时type属性为struct-->
+   
+    <Tree>
+        <Id type="int">编号</Id>
+        <Name type="string">名称</Name>
+        <Remark type="string">备注</Remark>
+    </Tree>
+     <User>
+        <Id type="int">编号</Id>
+        <Name type="string">名称</Name>
+        <Remark type="string">备注</Remark>
+    </User>
+     <Order>
+        <Id type="int">编号</Id>
+        <Name type="string">名称</Name>
+        <Remark type="string">备注</Remark>
+    </Order>
+    
+</model>

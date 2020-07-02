@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="../../static/easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../static/easyui/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../static/easyui/demo/demo.css">
+    <link rel="stylesheet" href="../../static/css/base.css">
+    <script src="../../static/js/jquery-3.4.1.js"></script>
+    <script type="text/javascript" src="../../static/easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="../../static/easyui/jquery.easyui.min.js"></script>
+    <script src="../../static/js/ajax.js"></script>
+    <style>
+        body {
+            width: 100%;
+            height: 100%;
+            text-align: center;
+
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .add_updata form {
+            padding: 20px;
+        }
+
+        .add_updata form>div {
+            padding: 15px;
+          
+            font-size: 20px;
+        }
+        .add_updata form label{
+            padding:10px;
+        }
+        .add_updata form label>input {
+            font-size: 20px;
+            margin-left: 5px;
+            padding: 5px;
+            height: 25px;
+            width: 150px;
+            line-height: 25px;
+            border-radius: 5px;
+        }
+    </style>
+
+    <title>权限管理</title>
+</head>
+
+<body>
+    <table id="dg" class="easyui-datagrid" title="权限列表" style="width:800px;height:100%"
+        data-options="singleSelect:true,toolbar:'#tb',fit:true,fitColumns:true,pagination:true,collapsible:true,url:'/action/gettable',method:'post',pageList:[14,30]">
+        <thead>
+            <tr>
+                <th data-options="field:'Id',width:80 ,align:'center'">编号</th>
+                <th data-options="field:'ActionName',width:100 ,align:'center'">权限名称</th>
+                <th data-options="field:'Url',width:100 ,align:'center'">请求地址</th>
+                <th data-options="field:'Icon',width:100 ,align:'center'">图标</th>
+                <th data-options="field:'IsMenu',width:100 ,align:'center'">菜单</th>
+                <th data-options="field:'Mothed',width:100 ,align:'center'">方法</th>
+                <th data-options="field:'Remark',width:80,align:'center'"> 备注</th>
+                <th data-options="field:'Delflage',width:80,align:'center'"> 删除与否</th>
+                <th data-options="field:' ',align:'center'">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>dkk</td>
+                <td>dkk</td>
+                <td>dkk</td>
+                <td>dkk</td>
+                <td>dkk</td>
+                <td>dkk</td>
+                <td>dkk</td>
+                <td>dkk</td>
+                <td><a href="#" onclick="updata(' + row.Id + ')">修改</a>&nbsp&nbsp 
+                    <a href="#" onclick="del(' + row.Id + ')">删除</a>
+                    &nbsp&nbsp <a href="#" onclick="realdel(' + row.Id + ')">真删除</a>
+                </td>
+            </tr>
+            <tr>
+                    <td>dkk</td>
+                    <td>dkk</td>
+                    <td>dkk</td>
+                    <td>dkk</td>
+                    <td>dkk</td>
+                    <td>dkk</td>
+                    <td>dkk</td>
+                    <td>dkk</td>
+                    <td><a href="#" onclick="updata(' + row.Id + ')">修改</a>&nbsp&nbsp 
+                        <a href="#" onclick="del(' + row.Id + ')">删除</a>
+                        &nbsp&nbsp <a href="#" onclick="realdel(' + row.Id + ')">真删除</a>
+                    </td>
+                </tr>
+        </tbody>
+    </table>
+    <div id="tb">
+        <a href="#" id="btn_add" class="easyui-linkbutton" iconCls="icon-add" plain="true">添加</a>
+
+    </div>
+
+    <div id="add" class="add_updata">       
+    </div>
+    <div id="updata" class="add_updata">       
+    </div>
+</body>
+
+</html>
+<script>
+    //处理删除标记
+    function delFage(value, row, index) {
+        if (value) {
+            return "删除";
+        } else {
+            return "未删除";
+        }
+
+    }
+    //添加操作按钮
+    function operate(value, row, index) {
+        return '<a href="#" onclick="updata(' + row.Id + ')">修改</a>&nbsp&nbsp <a href="#" onclick="del(' + row.Id + ')">删除</a>';
+    }
+//是不是菜单
+function isMenu(value,row,index){
+    if(value){
+        return "是";
+    }else{
+        return "不是";
+    }
+}
+// 是不是方法
+function mothed(value,row,index){
+    if(value){
+        return "是";
+    }else{
+        return "不是";
+    }
+}
+
+    //修改
+    function updata(id) {
+        //打开修改对话框
+        openDialog('updata', "修改权限", "/action/updata", "/action/updata?id="+id);
+        //alert(id);
+    }
+    //删除
+    function del(id) {
+        ajax({
+            type: 'post',
+            data: 'id=' + id,
+            url: '/action/delete',
+            success: function (data) {
+                //操作成功的
+                if (data.code == 4000) {
+                    //提示用户操作成功
+                    $.messager.alert('提示', data.text, 'info');
+                    //刷新当前的datagrid 
+                    reloadDataGrid();
+                } else {
+                    $.messager.alert('提示', data.text, 'warning');
+                }
+            }
+        })
+
+    }
+
+    //easyui linkbutton bind click 
+    $('#btn_add').bind('click', function () {
+        openDialog('add', "添加权限", "/action/add","/action/add");
+    });
+    //打开对话框
+    function openDialog(div, title, submitUrl, url) {
+        $('#' + div).dialog({
+            title: title,
+            width: 400,
+            height: 450,
+            closed: false,
+            cache: false,
+            modal: true,
+            href:url,
+            buttons: [{
+                text: '提交',
+                handler: function () {
+                    submit(div, submitUrl);
+                }
+            }, {
+                text: '关闭',
+                handler: function () {
+                    closeDialog(div);
+                }
+            }]
+        });
+
+    }
+    //关闭对话框
+    function closeDialog(div) {
+        $('#' + div).dialog('close');
+    }
+    //提交数据
+    function submit(div, url) {
+        ajax({
+            type: 'post',
+            data: $('#' + div + ' form').serialize(),//格式化表格数据
+            url: url,
+            success: function (data) {
+                oprateSuccess(div, data);
+            }
+        });
+
+    }
+    //操作完成
+    function oprateSuccess(div, data) {
+        //操作成功的
+        if (data.code == 4003||data.code==4006) {
+            //提示用户操作成功
+            $.messager.alert('提示', data.text, 'info');
+            //关闭对话框
+            closeDialog(div);
+            //刷新当前的datagrid 
+            reloadDataGrid();
+        } else {
+            $.messager.alert('提示', data.text, 'warning');
+        }
+
+    }
+    // datagrid重新加载数据
+    function reloadDataGrid() {
+        $('#dg').datagrid('reload');
+    }
+
+
+</script>

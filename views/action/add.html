@@ -1,0 +1,63 @@
+<form>
+    <div>
+        <label for="a_n">名称:<input type="text" name="ActionName" id="a_n"></label>
+
+    </div>
+    <div>
+        <label for="u_p">上级菜单：<select name="ParentId" id="u_p">
+
+                <option value="0" selected="selected">主菜单</option>               
+                {{range $i,$v:=.Lm}}            
+                <option value="{{$v.Id}}">{{$v.ActionName}}</option>
+                {{end}}
+
+            </select></label>
+    </div>
+    <div>
+        <label for="url">网址:<input type="text" name="Url" id="url"></label>
+    </div>
+    <div>
+        <label for="icon">图标:
+            <img id="icon_btn" src="../../static/img/icon/a.png" alt="">
+            <ul id="all_icon_btn">
+                <li><img src="../../static/img/icon/a.png" alt=""></li>
+                <li><img src="../../static/img/icon/a.png" alt=""></li>
+                <li><img src="../../static/img/icon/a.png" alt=""></li>
+            </ul>
+
+
+            <input type="hidden" name="Icon" id="icon" value="../../static/img/icon/a.png">
+        </label>
+    </div>
+    <div>
+        <label for="isMenu">菜单: <select name="Icon" id="isMenu">
+                <option value="true">是</option>
+                <option value="false">不是</option>
+            </select></label>
+        <label for="mothed">方法: <select name="mothed" id="mothed">
+                <option value="true">是</option>
+                <option value="false">不是</option>
+            </select></label>
+    </div>
+
+    <div>
+        <label for="remark">备注:<input type="text" name="Remark" id="remark"></label>
+    </div>
+</form>
+
+<style>
+    #all_icon_btn {
+        display: none;
+    }
+</style>
+<script>
+    $('#icon_btn').click(function () {
+        $('#all_icon_btn').css("display", "block");
+        alert($('#all_icon_btn').attr("display"));
+        if ($('#all_icon_btn').attr("display") == "none") {
+            $('#all_icon_btn').css("display", "block");
+        } else {
+            $('#all_icon_btn').css("display", "none");
+        }
+    })
+</script>
