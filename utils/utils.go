@@ -4,6 +4,7 @@ const (
 	ADD_OK    = 10000
 	DEL_OK    = 10001
 	UPDATA_OK = 10002
+	QUERY_OK  = 10003
 
 	ADD_ISEXIST      = 40000
 	ADD_FAIL         = 40001
@@ -11,8 +12,9 @@ const (
 	DEL_NOT_EXIST    = 40003
 	UPDATA_FAIL      = 40004
 	UPDATA_NOT_EXIST = 40005
-	SEND_DATA_ERROR  = 40006
-	QUERY_FAIL       = 40007
+	UPDATA_UNIQUE    = 40006
+	SEND_DATA_ERROR  = 40007
+	QUERY_FAIL       = 40008
 )
 
 func GetCodeText(code int) string {
@@ -28,5 +30,7 @@ func GetCodeText(code int) string {
 		DEL_OK:           "删除成功",
 		DEL_FAIL:         "删除失败",
 		DEL_NOT_EXIST:    "删除失败，数据不存在",
+		UPDATA_UNIQUE:    "数据已存在",
+		QUERY_OK:         "查询成功",
 	}[code]
 }

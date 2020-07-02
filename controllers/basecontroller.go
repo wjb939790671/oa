@@ -22,6 +22,7 @@ type BaseController struct {
 	iBll    bll.IBll
 	admin   bool
 	orderBy []string
+	unique  string
 }
 
 func (this *BaseController) Index() {
@@ -35,7 +36,7 @@ func (this *BaseController) Add() {
 	if error := this.ParseForm(this.model); error != nil {
 		this.message.Code = utils.SEND_DATA_ERROR
 	} else {
-		this.message.Code = this.iBll.Add(this.model)
+		this.message.Code = this.iBll.Add(this.model, this.unique)
 	}
 	this.message.Text = utils.GetCodeText(this.message.Code)
 	this.Data["json"] = this.message
@@ -62,7 +63,7 @@ func (this *BaseController) Updata() {
 	if error := this.ParseForm(this.model); error != nil {
 		this.message.Code = utils.SEND_DATA_ERROR
 	} else {
-		this.message.Code = this.iBll.Updata(this.model)
+		this.message.Code = this.iBll.Updata(this.model, this.unique)
 	}
 	this.message.Text = utils.GetCodeText(this.message.Code)
 	this.Data["json"] = this.message
@@ -101,9 +102,9 @@ func (this *BaseController) GetList() {
 	if !this.admin {
 		where["DelFlage"] = false
 	}
-	total := this.iBll.QueryTable(this.model, this.list, where, []string{}, this.orderBy, pageSize, pageIndex)
+	total := this.iBll.QueryTable(this.model, this.list, where, []interface{}{}, this.orderBy, pageSize, pageIndex)
 	if total > 0 {
-		this.message.Code = utils.OPERATE_OK
+		this.message.Code = utils.QUERY_OK
 		this.message.Data = struct {
 			row  int64
 			data interface{}
