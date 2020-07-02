@@ -23,7 +23,7 @@
                 <div id="meun" class="easyui-accordion" style="width:auto;height:100%;">
                         {{range $index,$v:=.Meun}}
                         <div title="{{$v.ActionName}}" style="padding:10px;border:0px">
-                                <ul class="easyui-tree" data-options="url:'/loadallsonmeun?meunId={{$v.Id}}'"></ul>
+                                <ul class="easyui-tree" data-options="url:'/loadmeun?meunId={{$v.Id}}'"></ul>
                         </div>
                         {{end}}
 
