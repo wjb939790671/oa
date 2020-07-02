@@ -24,6 +24,7 @@ type Action struct {
 	Icon       string
 	ParentId   int //上级菜单0为顶级菜单
 	IsMeun     bool
+	Mothed     bool
 	Delflage   bool
 	Remark     string
 	Roles      []*Role `orm:"reverse(many)"`

@@ -14,8 +14,11 @@ type BaseBll struct {
 }
 
 // Add(model interface{}) int
-func (this *BaseBll) Add(model interface{}) int {
-	if _, error := this.db.Insert(model); error == nil {
+func (this *BaseBll) Add(model interface{}, uniqueCols ...string) int {
+	if this.db.IsExist(model, uniqueCols...) {
+		return utils.ADD_ISEXIT_FAIL
+	}
+	if _, error := this.db.Add(model); error == nil {
 		return utils.OPERATE_OK
 	}
 	return utils.ADD_FAIL
