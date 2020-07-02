@@ -1,5 +1,7 @@
 package models
 
+import "time"
+
 type ResultMessage struct {
 	Code int
 	Text string
@@ -7,11 +9,12 @@ type ResultMessage struct {
 }
 
 type Role struct {
-	Id       int
-	RoleName string
-	Remark   string
-	ParentId int
-	Actions  []*Action `orm:"rel(m2m)"`
+	Id        int
+	RoleName  string
+	Remark    string
+	ParentId  int
+	Actions   []*Action   `orm:"rel(m2m)"`
+	Employees []*Employee `orm:"reverse(many)"`
 }
 type DataBase struct{}
 type Action struct {
@@ -27,8 +30,13 @@ type Action struct {
 }
 
 type Employee struct {
-	Id     int
-	Name   string
-	IdCard string //id card
-	Pwd    string //passward
+	Id       int
+	Name     string
+	IdCard   string //id card
+	Pwd      string //passward
+	Age      int
+	Sex      bool //true :男，false：女
+	Brithday time.Time
+
+	Roles []*Role `orm:"rel(m2m)"`
 }

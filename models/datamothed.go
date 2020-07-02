@@ -6,11 +6,6 @@ import (
 	"github.com/astaxie/beego/orm"
 )
 
-//data interface
-type Ibase interface {
-	Insert(model interface{}) (int64, error)
-}
-
 //insert model
 //@param model address of model
 //@return error of insert mondel and
@@ -34,7 +29,7 @@ func (db *DataBase) Updata(model interface{}, cols ...string) (int64, error) {
 func (db *DataBase) Delete(model interface{}) (int64, error) {
 	orm := orm.NewOrm()
 	v := reflect.ValueOf(model).Elem()
-	v.FieldByName("Delflage").SetBool(false)
+	v.FieldByName("Delflage").SetBool(true)
 	return orm.Update(model, "Delflage")
 }
 
@@ -103,15 +98,31 @@ func (db *DataBase) QueryAll(model, list interface{}, where map[string]interface
 }
 
 //多对多的插入
-func (db *DataBase) M2MAdd(model, dataModel interface{}, cols string) (int64, error) {
+func (db *DataBase) M2MAdd(model, dataModel interface{}, relatedSel string) (int64, error) {
 	orm := orm.NewOrm()
-	m2m := orm.QueryM2M(model, cols)
+	m2m := orm.QueryM2M(model, relatedSel)
 	m2m.Clear()
 	return m2m.Add(dataModel)
 }
 
 //加载多对多数据
-func (db *DataBase) M2MQuery(model interface{}, cols string) (int64, error) {
+func (db *DataBase) M2MQuery(model interface{}, relatedSel string) (int64, error) {
 	orm := orm.NewOrm()
-	return orm.LoadRelated(model, cols)
+	if error := orm.Read(model); error != nil {
+		return 0, error
+	}
+	return orm.LoadRelated(model, relatedSel)
+}
+func (db *DataBase) IsExist(model interface{}, cols ...string) bool {
+	orm := orm.NewOrm()
+	t := reflect.ValueOf(model).Type()
+	v := reflect.New(t).Elem()
+	for _, value := range cols {
+		v.FieldByName(value).Set(reflect.ValueOf(model).FieldByName(value))
+	}
+	if error := orm.Read(model, cols...); error != nil {
+		return false
+	}
+	return true
+
 }
