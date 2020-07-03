@@ -58,7 +58,7 @@
                 <th data-options="field:'Delflage',align:'center',formatter:delFage"> 删除与否</th>
                 <th data-options="field:' ',align:'center',formatter:roperate">操作</th>
                 {{else}}
-                <th data-options="field:' ',align:'center',formatter:operate">操作</th>
+                <th data-options="field:' ',align:'center',formatter:roperate">操作</th>
                 {{end}}
             </tr>
         </thead>
@@ -87,45 +87,45 @@
         }
 
     }
-    //添加操作按钮
-    function operate(value, row, index) {
-        //获取增删除改权限
-        var operate = ($('#operate').val()).split('|');
-        if (operate.length <= 0) {
-            return
-        }
-        var str = "";
-        //判断权限数据中是否是有超级管理的的权限
-        if (operate.indexOf('rdelete') != -1) {
-            for (var i = 0; i < operate.length; i++) {
-                //修改
-                if (operate[i] == "updata") {
-                    str += '<a href="#" onclick="updata(' + row.Id + ')">修改</a>';
-                } else if (operate[i] == "delete") {//标记删除
-                    str += '<a href="#" onclick="del(' + row.Id + ')">标记删除</a>';
-                } else if (operate[i] == "rdelete") {//删除
-                    str += ' <a href="#" onclick="rdel(' + row.Id + ')">删除</a>'
-                }
-                if (i != operate.length - 1) {
-                    str += "&nbsp&nbsp";
-                }
-            }
-        } else {
-            for (var i = 0; i < operate.length; i++) {
-                //修改
-                if (operate[i] == "updata") {
-                    str += '<a href="#" onclick="updata(' + row.Id + ')">修改</a>';
-                } else if (operate[i] == "delete") {//删除
-                    str += '<a href="#" onclick="del(' + row.Id + ')">删除</a>';
-                }
-                if (i != operate.length - 1) {
-                    str += "&nbsp&nbsp";
-                }
-            }
-        }
-        return str
+    // //添加操作按钮
+    // function operate(value, row, index) {
+    //     //获取增删除改权限
+    //     var operate = ($('#operate').val()).split('|');
+    //     if (operate.length <= 0) {
+    //         return
+    //     }
+    //     var str = "";
+    //     //判断权限数据中是否是有超级管理的的权限
+    //     if (operate.indexOf('rdelete') != -1) {
+    //         for (var i = 0; i < operate.length; i++) {
+    //             //修改
+    //             if (operate[i] == "updata") {
+    //                 str += '<a href="#" onclick="updata(' + row.Id + ')">修改</a>';
+    //             } else if (operate[i] == "delete") {//标记删除
+    //                 str += '<a href="#" onclick="del(' + row.Id + ')">标记删除</a>';
+    //             } else if (operate[i] == "rdelete") {//删除
+    //                 str += ' <a href="#" onclick="rdel(' + row.Id + ')">删除</a>'
+    //             }
+    //             if (i != operate.length - 1) {
+    //                 str += "&nbsp&nbsp";
+    //             }
+    //         }
+    //     } else {
+    //         for (var i = 0; i < operate.length; i++) {
+    //             //修改
+    //             if (operate[i] == "updata") {
+    //                 str += '<a href="#" onclick="updata(' + row.Id + ')">修改</a>';
+    //             } else if (operate[i] == "delete") {//删除
+    //                 str += '<a href="#" onclick="del(' + row.Id + ')">删除</a>';
+    //             }
+    //             if (i != operate.length - 1) {
+    //                 str += "&nbsp&nbsp";
+    //             }
+    //         }
+    //     }
+    //     return str
 
-    }
+    // }
     //添加超能管理员操作按钮
     function roperate(value, row, index) {
         return '<a href="#" onclick="updata(' + row.Id + ')">修改</a>&nbsp&nbsp <a href="#" onclick="del(' + row.Id + ')">标记删除</a>&nbsp&nbsp <a href="#" onclick="rdel(' + row.Id + ')">删除</a>';
@@ -258,4 +258,14 @@
         });        
     }
 
+$(function(){
+    $('#dg').datagrid({
+	loadFilter: function(data){
+		if (data["code"]==10003){
+			return data["data"];
+		} 
+	}
+});
+})
+   
 </script>

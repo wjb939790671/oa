@@ -100,15 +100,15 @@ func (this *BaseController) GetList() {
 	}
 	where := make(map[string]interface{})
 	if !this.admin {
-		where["DelFlage"] = false
+		where["Delflage"] = false
 	}
 	total := this.iBll.QueryTable(this.model, this.list, where, []interface{}{}, this.orderBy, pageSize, pageIndex)
 	if total > 0 {
 		this.message.Code = utils.QUERY_OK
-		this.message.Data = struct {
-			row  int64
-			data interface{}
-		}{row: total, data: this.list}
+		data := make(map[string]interface{})
+		data["total"] = total
+		data["rows"] = this.list
+		this.message.Data = data
 	} else {
 		this.message.Code = utils.QUERY_FAIL
 	}

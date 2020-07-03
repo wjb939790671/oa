@@ -55,15 +55,19 @@ func getTree(model interface{}, iBll bll.IBll, parentId int) []Tree {
 	where := make(map[string]interface{})
 	where["ParentId"] = parentId
 	var list []models.Action
-	iBll.QueryAll(model, &list, where, []string{"Id", "ActionName"}, "Id", "ActionName", "Icon", "Url", "IsMeun", "M")
+	iBll.QueryAll(model, &list, where, []string{"Id", "ActionName"}, "Id", "ActionName", "Icon", "Url", "IsMenu", "Mothed")
 	var trees []Tree
 	for _, value := range list {
 		var tree Tree
-		if value.IsMeun {
-			tree.Children = getTree(model, iBll, value.Id)
+		if value.Mothed {
+			continue
+		}
+		if value.IsMenu {
+			tree.Children = append(tree.Children, getTree(model, iBll, value.Id)...)
 		}
 		atrr := make(map[string]interface{})
 		atrr["url"] = value.Url
+		tree.Attributes = atrr
 		tree.Id = value.Id
 		tree.Text = value.ActionName
 		tree.IconCls = value.Icon

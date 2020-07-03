@@ -11,7 +11,8 @@ type ActionController struct {
 
 func (this *ActionController) Prepare() {
 	this.model = &models.Action{}
-	var list models.Action
+	var list []models.Action
 	this.list = &list
 	this.iBll = &bll.ActionBll{}
+	this.pathFolder = "action/"
 }

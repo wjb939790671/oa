@@ -3,9 +3,9 @@ package models
 import "time"
 
 type ResultMessage struct {
-	Code int
-	Text string
-	Data interface{}
+	Code int         `json:"code"`
+	Text string      `json:"text"`
+	Data interface{} `json:"data"`
 }
 
 type Role struct {
@@ -13,6 +13,7 @@ type Role struct {
 	RoleName  string
 	Remark    string
 	ParentId  int
+	Delflage  bool
 	Actions   []*Action   `orm:"rel(m2m)"`
 	Employees []*Employee `orm:"reverse(many)"`
 }
@@ -23,7 +24,7 @@ type Action struct {
 	Url        string
 	Icon       string
 	ParentId   int //上级菜单0为顶级菜单
-	IsMeun     bool
+	IsMenu     bool
 	Mothed     bool
 	Delflage   bool
 	Remark     string
@@ -38,6 +39,7 @@ type Employee struct {
 	Age      int
 	Sex      bool //true :男，false：女
 	Brithday time.Time
-
-	Roles []*Role `orm:"rel(m2m)"`
+	Delflage bool
+	Remark   string
+	Roles    []*Role `orm:"rel(m2m)"`
 }

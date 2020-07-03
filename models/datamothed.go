@@ -1,6 +1,7 @@
 package models
 
 import (
+	"fmt"
 	"reflect"
 
 	"github.com/astaxie/beego/orm"
@@ -117,10 +118,19 @@ func (db *DataBase) M2MQuery(model interface{}, relatedSel string) (int64, error
 //存在与否
 func (db *DataBase) IsExist(model interface{}, cols ...string) bool {
 	orm := orm.NewOrm()
-	t := reflect.ValueOf(model).Type()
-	v := reflect.New(t).Elem()
+	t := reflect.ValueOf(model).Elem().Type()
+	v := reflect.New(t)
+	vv := reflect.ValueOf(v)
+	fmt.Println(v.Type())
 	for _, value := range cols {
-		v.FieldByName(value).Set(reflect.ValueOf(model).FieldByName(value))
+		fmt.Println(value)
+		if vv.FieldByName(value).IsValid() {
+			fmt.Println(vv.FieldByName(value).Kind())
+		}
+		//vv.FieldByName(value).SetString("RoleRole")
+
+		fmt.Println("v:=", v)
+		fmt.Println("vv:=", vv)
 	}
 	if error := orm.Read(model, cols...); error != nil {
 		return false
