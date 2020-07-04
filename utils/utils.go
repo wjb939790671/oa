@@ -1,7 +1,7 @@
 package utils
 
 const (
-	ADD_OK    = 10000
+	OK        = 10000
 	DEL_OK    = 10001
 	UPDATA_OK = 10002
 	QUERY_OK  = 10003
@@ -19,7 +19,7 @@ const (
 
 func GetCodeText(code int) string {
 	return map[int]string{
-		ADD_OK:           "添加成功",
+		OK:               "操作成功",
 		ADD_ISEXIST:      "添加失败，数据已存在",
 		ADD_FAIL:         "添加失败",
 		UPDATA_OK:        "修改成功",

@@ -21,7 +21,7 @@ func (this *BaseBll) Add(model interface{}, uniqueCols string) int {
 		return utils.ADD_ISEXIST
 	}
 	if _, error := this.db.Add(model); error == nil {
-		return utils.ADD_OK
+		return utils.OK
 	}
 	return utils.ADD_FAIL
 }
@@ -30,7 +30,7 @@ func (this *BaseBll) Add(model interface{}, uniqueCols string) int {
 func (this *BaseBll) Delete(model interface{}) int {
 	_, error := this.db.Delete(model)
 	if error == nil {
-		return utils.DEL_OK
+		return utils.OK
 	}
 	if error == orm.ErrNoRows {
 		return utils.DEL_NOT_EXIST
@@ -40,12 +40,12 @@ func (this *BaseBll) Delete(model interface{}) int {
 
 // Updata(model interface{}, cols ...string) int
 func (this *BaseBll) Updata(model interface{}, uniqueCols string, cols ...string) int {
-	if this.db.IsExist(model, uniqueCols) {
-		return utils.UPDATA_UNIQUE
-	}
+	// if this.db.IsExist(model, uniqueCols) {
+	// 	return utils.UPDATA_UNIQUE
+	// }
 	_, error := this.db.Updata(model, cols...)
 	if error == nil {
-		return utils.UPDATA_OK
+		return utils.OK
 	}
 	if error == orm.ErrNoRows {
 		return utils.UPDATA_NOT_EXIST
@@ -57,7 +57,7 @@ func (this *BaseBll) Updata(model interface{}, uniqueCols string, cols ...string
 func (this *BaseBll) RealDelete(model interface{}) int {
 	_, error := this.db.RealDelete(model)
 	if error == nil {
-		return utils.DEL_OK
+		return utils.OK
 	}
 	if error == orm.ErrNoRows {
 		return utils.DEL_NOT_EXIST

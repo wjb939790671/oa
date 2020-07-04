@@ -144,7 +144,7 @@
             url: '/role/delete',
             success: function (data) {
                 //操作成功的
-                if (data.code == 4000) {
+                if (data.code == 10000) {
                     //提示用户操作成功
                     $.messager.alert('提示', data.text, 'info');
                     //刷新当前的datagrid 
@@ -204,7 +204,7 @@
     //操作完成
     function oprateSuccess(div, data) {
         //操作成功的
-        if (data.code == 4000) {
+        if (data.code == 10000) {
             //提示用户操作成功
             $.messager.alert('提示', data.text, 'info');
             //关闭对话框
@@ -247,7 +247,7 @@
             data:"roleId="+roelId+"&actionIds="+checkedIds,//格式化表格数据
             url: "/role/setAction?roleId="+roelId,            
             success: function (data) {
-               if(data["code"]=4000){
+               if(data["code"]=10000){
                 $.messager.alert('提示', data["text"], 'info');
                    closeDialog("setRoleAction");
                    //$('#setActionTree').tree('reload');

@@ -4,6 +4,7 @@ import (
 	"OA/bll"
 	"OA/models"
 	"OA/utils"
+	"fmt"
 
 	"github.com/astaxie/beego"
 )
@@ -61,6 +62,7 @@ func (this *BaseController) Updata() {
 		}
 	}
 	if error := this.ParseForm(this.model); error != nil {
+		fmt.Println(error, this.model)
 		this.message.Code = utils.SEND_DATA_ERROR
 	} else {
 		this.message.Code = this.iBll.Updata(this.model, this.unique)

@@ -17,4 +17,6 @@ func init() {
 	beego.Router("/role", &controllers.RoleController{}, "get:Index")
 	beego.Router("/role/add", &controllers.RoleController{}, "get,post:Add")
 	beego.Router("/role/getlist", &controllers.RoleController{}, "post:GetList")
+	beego.Router("/role/updata", &controllers.RoleController{}, "get,post:Updata")
+	beego.Router("/role/delete", &controllers.RoleController{}, "get,post:Delete")
 }
