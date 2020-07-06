@@ -115,15 +115,20 @@
         $('#dg').datagrid({
             onBeforeLoad: function (param) {
                 ajax({
-                    type: "post",                  
+                    type: "post",
                     url: "/action/query",
                     success: function (data) {
-                        if (data["code"] == 4000) {
-                            list=data["data"];
+                        if (data["code"] == 10000) {
+                            list = data["data"];
                         }
                     }
                 });
-                
+
+            },
+            loadFilter: function (data) {
+                if (data["code"] == 10003) {
+                    return data["data"];
+                }
             }
         })
 
@@ -202,14 +207,14 @@
         }
     }
     function getParentMeun(value, row, index) {
-        if(value==0){
-               return "主菜单";
-           }
-       for(key in list){          
-           if (list[key]["Id"]==value){
-               return list[key]["ActionName"];
-           }
-       }
+        if (value == 0) {
+            return "主菜单";
+        }
+        for (key in list) {
+            if (list[key]["Id"] == value) {
+                return list[key]["ActionName"];
+            }
+        }
     }
     //修改
     function updata(id) {
@@ -225,7 +230,7 @@
             url: '/action/delete',
             success: function (data) {
                 //操作成功的
-                if (data.code == 4000) {
+                if (data.code == 10000) {
                     //提示用户操作成功
                     $.messager.alert('提示', data.text, 'info');
                     //刷新当前的datagrid 
@@ -245,7 +250,7 @@
             url: '/action/rdelete',
             success: function (data) {
                 //操作成功的
-                if (data.code == 4000) {
+                if (data.code == 10000) {
                     //提示用户操作成功
                     $.messager.alert('提示', data.text, 'info');
                     //刷新当前的datagrid 
@@ -305,7 +310,7 @@
     //操作完成
     function oprateSuccess(div, data) {
         //操作成功的
-        if (data.code == 4000) {
+        if (data.code == 10000) {
             //提示用户操作成功
             $.messager.alert('提示', data.text, 'info');
             //关闭对话框
