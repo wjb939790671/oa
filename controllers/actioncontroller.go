@@ -15,4 +15,5 @@ func (this *ActionController) Prepare() {
 	this.list = &list
 	this.iBll = &bll.ActionBll{}
 	this.pathFolder = "action/"
+	this.unique = "Url"
 }

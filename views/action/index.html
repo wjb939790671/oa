@@ -48,28 +48,34 @@
             line-height: 25px;
             border-radius: 5px;
         }
-        .icon{
+
+        .icon {
             width: 16px;
             height: 16px;
         }
-        img{
+
+        img {
             text-align: center;
-            vertical-align: middle;            
+            vertical-align: middle;
         }
-        .uploadfile{
+
+        .uploadfile {
             height: 25px;
             width: 50px;
             font-size: 16px;
         }
-        .btnuploadfile{
+
+        .btnuploadfile {
             height: 25px;
             width: 50px;
             font-size: 16px;
         }
-        .uploadfileshow{
+
+        .uploadfileshow {
             display: block
         }
-        .uploadfile_unshow{
+
+        .uploadfile_unshow {
             display: none
         }
     </style>
@@ -79,7 +85,8 @@
 
 <body>
     <input type="hidden" id="operate" value="{{.Operate}}">
-    <table id="dg" class="easyui-datagrid" title="权限列表" style="width:800px;height:100%" data-options="singleSelect:true,toolbar:'#tb',fit:true,fitColumns:true,pagination:true,collapsible:true,url:'/action/getlist',method:'post'">
+    <table id="dg" class="easyui-datagrid" title="权限列表" style="width:800px;height:100%"
+        data-options="singleSelect:true,toolbar:'#tb',fit:true,fitColumns:true,pagination:true,collapsible:true,url:'/action/getlist',method:'post'">
         <thead>
             <tr>
                 <th data-options="field:'Id',width:20 ,align:'center'">编号</th>
@@ -115,17 +122,24 @@
         $('#dg').datagrid({
             onBeforeLoad: function (param) {
                 ajax({
-                    type: "post",                  
+                    type: "post",
                     url: "/action/query",
                     success: function (data) {
                         if (data["code"] == 4000) {
-                            list=data["data"];
+                            list = data["data"];
                         }
                     }
                 });
-                
+
             }
-        })
+        });
+        $('#dg').datagrid({
+            loadFilter: function (data) {
+                if (data["code"] == 10003) {
+                    return data["data"];
+                }
+            }
+        });
 
     });
 
@@ -202,14 +216,14 @@
         }
     }
     function getParentMeun(value, row, index) {
-        if(value==0){
-               return "主菜单";
-           }
-       for(key in list){          
-           if (list[key]["Id"]==value){
-               return list[key]["ActionName"];
-           }
-       }
+        if (value == 0) {
+            return "主菜单";
+        }
+        for (key in list) {
+            if (list[key]["Id"] == value) {
+                return list[key]["ActionName"];
+            }
+        }
     }
     //修改
     function updata(id) {
