@@ -125,24 +125,17 @@
                     type: "post",
                     url: "/action/query",
                     success: function (data) {
-<<<<<<< HEAD
-                        if (data["code"] == 4000) {
-=======
                         if (data["code"] == 10000) {
->>>>>>> 8a1f30b2a36b34695cf2098c09d2fbb2e1fcb52f
                             list = data["data"];
                         }
                     }
                 });
 
-<<<<<<< HEAD
-=======
             },
             loadFilter: function (data) {
                 if (data["code"] == 10003) {
                     return data["data"];
                 }
->>>>>>> 8a1f30b2a36b34695cf2098c09d2fbb2e1fcb52f
             }
         });
         $('#dg').datagrid({

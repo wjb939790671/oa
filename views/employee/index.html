@@ -49,12 +49,12 @@
         }
     </style>
 
-    <title>权限管理</title>
+    <title>员工列表</title>
 </head>
 
 <body>
-    <table id="dg" class="easyui-datagrid" title="权限列表" style="width:800px;height:100%"
-        data-options="singleSelect:true,toolbar:'#tb',fit:true,fitColumns:true,pagination:true,collapsible:true,url:'/employee/getlist',method:'post'">
+    <table id="dg" class="easyui-datagrid" title="员工列表" style="height:100%"
+        data-options="singleSelect:true,toolbar:'#tb',fit:true,fitColumns:true,pagination:true,collapsible:true,url:'/employee/getlist',method:'post',pageList:[14,30]">
         <thead>
             <tr>
                 <th data-options="field:'Id',width:80 ,align:'center'">编号</th>
@@ -67,7 +67,37 @@
                 <th data-options="field:'Delflage',width:80,align:'center'"> 删除与否</th>
                 <th data-options="field:' ',align:'center'">操作</th>
             </tr>
-        </thead>        
+        </thead>
+        <tbody>
+            <tr>
+                <td>dkk</td>
+                <td>dkk</td>
+                <td>dkk</td>
+                <td>dkk</td>
+                <td>dkk</td>
+                <td>dkk</td>
+                <td>dkk</td>
+                <td>dkk</td>
+                <td><a href="#" onclick="updata(' + row.Id + ')">修改</a>&nbsp&nbsp 
+                    <a href="#" onclick="del(' + row.Id + ')">删除</a>
+                    &nbsp&nbsp <a href="#" onclick="realdel(' + row.Id + ')">真删除</a>
+                </td>
+            </tr>
+            <tr>
+                    <td>dkk</td>
+                    <td>dkk</td>
+                    <td>dkk</td>
+                    <td>dkk</td>
+                    <td>dkk</td>
+                    <td>dkk</td>
+                    <td>dkk</td>
+                    <td>dkk</td>
+                    <td><a href="#" onclick="updata(' + row.Id + ')">修改</a>&nbsp&nbsp 
+                        <a href="#" onclick="del(' + row.Id + ')">删除</a>
+                        &nbsp&nbsp <a href="#" onclick="realdel(' + row.Id + ')">真删除</a>
+                    </td>
+                </tr>
+        </tbody>
     </table>
     <div id="tb">
         <a href="#" id="btn_add" class="easyui-linkbutton" iconCls="icon-add" plain="true">添加</a>
