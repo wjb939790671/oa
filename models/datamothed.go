@@ -94,6 +94,7 @@ func (db *DataBase) QueryAll(model, list interface{}, where map[string]interface
 	for index, value := range where {
 		qs = qs.Filter(index, value)
 	}
+
 	return qs.OrderBy(orderBy...).All(list, cols...)
 }
 

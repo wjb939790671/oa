@@ -17,8 +17,10 @@ type BaseBll struct {
 
 // Add(model interface{}) int
 func (this *BaseBll) Add(model interface{}, uniqueCols string) int {
-	if this.db.IsExist(model, uniqueCols) {
-		return utils.ADD_ISEXIST
+	if uniqueCols != "" {
+		if this.db.IsExist(model, uniqueCols) {
+			return utils.ADD_ISEXIST
+		}
 	}
 	if _, error := this.db.Add(model); error == nil {
 		return utils.OK
