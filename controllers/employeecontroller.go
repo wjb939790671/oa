@@ -11,8 +11,9 @@ type EmployeeController struct {
 
 func (this *EmployeeController) Prepare() {
 	this.model = &models.Employee{}
-	var list models.Employee
+	var list []models.Employee
 	this.list = &list
 	this.unique = "IdCard"
 	this.iBll = &bll.EmployeeBll{}
+	this.pathFolder = "employee/"
 }

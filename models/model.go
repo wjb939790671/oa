@@ -32,14 +32,18 @@ type Action struct {
 }
 
 type Employee struct {
-	Id       int
+	Id     int
+	Age    int
+	Height int
+	Weight int
+
 	Name     string
 	IdCard   string //id card
 	Pwd      string //passward
-	Age      int
-	Sex      bool //true :男，false：女
+	Remark   string
 	Brithday time.Time
 	Delflage bool
-	Remark   string
-	Roles    []*Role `orm:"rel(m2m)"`
+	Sex      bool //true :男，false：女
+
+	Roles []*Role `orm:"rel(m2m)"`
 }
