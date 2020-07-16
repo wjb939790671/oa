@@ -32,18 +32,30 @@ type Action struct {
 }
 
 type Employee struct {
-	Id     int
-	Age    int
-	Height int
-	Weight int
+	Id         int
+	Position   int //职位
+	Delflage   bool
+	Sex        bool   //true :男，false：女
+	JobNumber  string //工号
+	Name       string
+	Pwd        string //passward
+	Remark     string
+	Phone      string
+	EnteryTime time.Time //入职日期
 
-	Name     string
-	IdCard   string //id card
-	Pwd      string //passward
-	Remark   string
-	Brithday time.Time
-	Delflage bool
-	Sex      bool //true :男，false：女
-
-	Roles []*Role `orm:"rel(m2m)"`
+	EmployeeExtend *EmployeeExtend `orm:"rel(one)"`
+	Roles          []*Role         `orm:"rel(m2m)"`
+}
+type EmployeeExtend struct {
+	Age                 int
+	Height              int
+	Weight              int
+	IdCard              string //id card
+	EducationBackground string //学历
+	Nation              string //民簇
+	NativePlace         string //籍贯
+	PresentAddress      string //现居地址
+	WorkExperience      string //工作经历
+	Brithday            time.Time
+	Employee            *Employee `orm:"reverse(one)`
 }
