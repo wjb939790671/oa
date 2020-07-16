@@ -14,14 +14,9 @@ func init() {
 	beego.Router("/action/index", &controllers.ActionController{}, "get:Index")
 	beego.Router("/action/add", &controllers.ActionController{}, "get,post:Add")
 	beego.Router("/action/getlist", &controllers.ActionController{}, "post:GetList")
-<<<<<<< HEAD
-	beego.Router("/action/updata", &controllers.RoleController{}, "get,post:Updata")
-	beego.Router("/action/delete", &controllers.RoleController{}, "get,post:Delete")
-=======
 	beego.Router("/action/updata", &controllers.ActionController{}, "get,post:Updata")
 	beego.Router("/action/delete", &controllers.ActionController{}, "get,post:Delete")
 	beego.Router("/action/query", &controllers.ActionController{}, "post:QueryAll")
->>>>>>> 8a1f30b2a36b34695cf2098c09d2fbb2e1fcb52f
 
 	beego.Router("/role", &controllers.RoleController{}, "get:Index")
 	beego.Router("/role/index", &controllers.RoleController{}, "get:Index")
